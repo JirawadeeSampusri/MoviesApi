@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>Average Monthly Rainfalls</title>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <meta charset="utf-8">
+  <title>Average Monthly Rainfalls</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 <body>
   <div id="chart" style="width:100%;height:75vh;"></div>
   <script>
@@ -16,46 +18,54 @@
         },
         body: JSON.stringify({
           query: `
-            {
-              basins{
+              {
+              movies {
                 name
-                avgMonthlyRainfalls {
-                  amount
-                  month
+                avgYearScore {
+                    title_year
+                    imdb_avg_score
+                  }
                 }
-              }
-            }`
+              }`
         })
+      }).catch((err)=>{
+        console.log(err);
       });
       var json = await resp.json();
       var table = json.data;
 
-      var data = [];
-      table.basins.forEach(basin => {
-        data.push({
-          x: basin.avgMonthlyRainfalls.map(row => row.month),
-          y: basin.avgMonthlyRainfalls.map(row => row.amount),
-          type: 'line',
-          name: basin.name,
+      // var data = [{
+      // x: table.basin.avgMonthlyRainfalls.map(row => row.month),
+      // y: table.basin.avgMonthlyRainfalls.map(row => row.amount),
+      // type: 'line',
+      // name: table.basin.name,
+      // }];
 
-        });
-      });
+      var trace1 = {
+        x: table.movies/EachYearScore.avgYearScore.map(row => row.title_year),
+        y: table.movies/EachYearScore.avgYearScore.map(row => row.imdb_avg_score),
+        type: 'line',
+        name: table.movies.name,
+      };
+
+      var data = [trace1];
 
       console.log(data);
       var layout = {
-        title: 'Average Monthly Rainfalls for All Basins',
+        title: 'Average Year score all movie in each year',
         xaxis: {
-          title: 'Month'
+          title: 'Year'
         },
         yaxis: {
-          title: 'Monthly Rainfall (mm)',
-          range: [0,500]
+          title: 'Imdb_avg_score',
+          range: [0, 10]
         }
       };
       var config = { responsive: true };
       Plotly.newPlot("chart", data, layout, config);
-    } 
+    }
     createChart();
   </script>
 </body>
+
 </html>

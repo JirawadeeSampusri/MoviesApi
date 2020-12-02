@@ -20,6 +20,32 @@ paths:
           description: Success
       summary: Returns a list movie.
       x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/BestDirector:
+    get:
+      operationId: controller_get_best_director
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Success
+      summary: Returns a list movie.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/EachDirectorScore:
+    get:
+      operationId: controller_get_average_score_for_each_director
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Director'
+                type: array
+          description: Success
+      summary: Returns a list movie.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
   /movies/EachYearScore:
     get:
       operationId: controller_get_average_score_of_movies_in_each_year
@@ -31,6 +57,18 @@ paths:
                 items:
                   $ref: '#/components/schemas/AverageEachYear'
                 type: array
+          description: Success
+      summary: Returns a list movie.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/MostYearScore:
+    get:
+      operationId: controller_find_most_score_of_year
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
           description: Success
       summary: Returns a list movie.
       x-openapi-router-controller: openapi_server.controllers.default_controller
@@ -48,13 +86,13 @@ paths:
           description: Success
       summary: Returns a list movie that ahve imdb scor more than 9.5.
       x-openapi-router-controller: openapi_server.controllers.default_controller
-  /movies/{actor_1_name}:
+  /movies/{actor_name}:
     get:
-      operationId: controller_get_movies_of_actor
+      operationId: controller_get_movies_from_actor
       parameters:
       - explode: false
         in: path
-        name: actor_1_name
+        name: actor_name
         required: true
         schema:
           type: string
@@ -70,16 +108,16 @@ paths:
             all-score:
               operationId: controller.get_average_score_of_actor
               parameters:
-                actor_1_name: $response.body#/actor_1_name
+                actor_1_name: $response.body#/actor_name
       summary: Returns a list of movies that this director has directed.
       x-openapi-router-controller: openapi_server.controllers.default_controller
-  /movies/{actor_1_name}/all-score:
+  /movies/{actor_name}/all-score:
     get:
       operationId: controller_get_average_score_of_actor
       parameters:
       - explode: false
         in: path
-        name: actor_1_name
+        name: actor_name
         required: true
         schema:
           type: string
@@ -137,6 +175,26 @@ paths:
                 type: number
           description: Success
       summary: Returns average score of all movie of this director.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/{movie_title}:
+    get:
+      operationId: controller_get_movie_detail_by_movie_title
+      parameters:
+      - explode: false
+        in: path
+        name: movie_title
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: Success
+      summary: Returns full detail of the movies that have this title.
       x-openapi-router-controller: openapi_server.controllers.default_controller
   /movies/{title_year}:
     get:
@@ -234,12 +292,23 @@ components:
       type: object
     AverageEachYear:
       example:
-        score: 0.8008282
-        year: ""
+        imdb_avg_score: 6.0274563
+        title_year: 0
       properties:
-        year:
-          type: Integer
-        score:
+        title_year:
+          type: integer
+        imdb_avg_score:
+          format: float
+          type: number
+      type: object
+    Director:
+      example:
+        imdb_avg_score: 0.8008282
+        director_name: director_name
+      properties:
+        director_name:
+          type: string
+        imdb_avg_score:
           format: float
           type: number
       type: object

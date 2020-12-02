@@ -12,20 +12,26 @@ def db_cursor():
 def get_movies():
     with db_cursor() as cs:
         cs.execute("""
-            SELECT * 
+            SELECT *
             FROM Movies""")
         result = [models.Movie(*row) for row in cs.fetchall()]
+    if result:
         return result
+    else:
+        abort(404)
 
 def get_movies_directed_by_director_name(director_name):
     with db_cursor() as cs:
         cs.execute("""
-            SELECT movie_title
+            SELECT movie_title, title_year
             FROM Movies
             WHERE director_name=%s
             """, [director_name])
         result = [models.Movie(*row) for row in cs.fetchall()]
-    return result
+    if result:
+        return result
+    else:
+        abort(404)
 
 def get_movie_detail_by_movie_title(movie_title):
     with db_cursor() as cs:
@@ -35,8 +41,10 @@ def get_movie_detail_by_movie_title(movie_title):
             WHERE movie_title=%s
             """, [movie_title])
         result = [models.Movie(*row) for row in cs.fetchall()]
-    return result
-
+    if result:
+        return result
+    else:
+        abort(404)
 def get_movie_by_year(title_year):
     with db_cursor() as cs:
         cs.execute("""
@@ -45,7 +53,10 @@ def get_movie_by_year(title_year):
             WHERE title_year=%s
             """, [title_year])
         result = [models.Movie(*row) for row in cs.fetchall()]
-    return result
+    if result:
+        return result
+    else:
+        abort(404)
 
 def get_average_score_for_director(director_name):
     with db_cursor() as cs:
@@ -55,7 +66,11 @@ def get_average_score_for_director(director_name):
             WHERE director_name=%s;
             """, [director_name])
         result = cs.fetchone()
-    return result
+    if result:
+        score = result
+        return score
+    else:
+        abort(404)
 
 def get_best_movies():
     with db_cursor() as cs:
@@ -64,26 +79,42 @@ def get_best_movies():
             FROM Movies
             WHERE imdb_score > 9""")
         result = [models.Movie(*row) for row in cs.fetchall()]
+    if result:
         return result
-def get_movies_of_actor(actor_1_name):
+    else:
+        abort(404)
+def get_movies_from_actor(actor_name):
+    actor_1_name = actor_name
+    actor_2_name = actor_name
+    actor_3_name = actor_name
     with db_cursor() as cs:
         cs.execute("""
-            SELECT movie_title
+            SELECT movie_title, imdb_score
             FROM Movies
-            WHERE actor_1_name={actor_1_name};
-            """)
-        result = [models.Movie(*row) for row in cs.fetchall()]
-    return result
+            WHERE actor_1_name=%s OR actor_2_name=%s OR actor_3_name=%s;
+            """, [actor_1_name,actor_2_name,actor_3_name])
+        result = [models.Director(*row) for row in cs.fetchall()]
+    if result:
+        return result
+    else:
+        abort(404)
 
 def get_average_score_of_actor(actor_name):
+    actor_1_name = actor_name
+    actor_2_name = actor_name
+    actor_3_name = actor_name
     with db_cursor() as cs:
         cs.execute("""
             SELECT AVG(imdb_score)
             FROM Movies
-            WHERE actor_1_name={actor_1_name};
-            """)
+            WHERE actor_1_name=%s OR actor_2_name=%s OR actor_3_name=%s;
+            """, [actor_1_name,actor_2_name,actor_3_name])
         result = cs.fetchone()
-    return result
+    if result:
+        score = result
+        return score
+    else:
+        abort(404)
 
 def get_average_score_of_movies_in_each_year():
     with db_cursor() as cs:
@@ -93,92 +124,70 @@ def get_average_score_of_movies_in_each_year():
             GROUP BY title_year
             ORDER BY title_year
             """)
-        result = [models.Movie(*row) for row in cs.fetchall()]
-    return result
+        result = [models.AverageEachYear(*row) for row in cs.fetchall()]
+    if result:
+        return result
+    else:
+        abort(404)
 def get_average_score_of_movies_in_that_year(title_year):
     with db_cursor() as cs:
         cs.execute("""
-            SELECT title_year, AVG(imdb_score)
+            SELECT AVG(imdb_score)
             FROM Movies
             WHERE title_year=%s
             """,  [title_year])
-        result = [models.Movie(*row) for row in cs.fetchall()]
-    return result
+        result = cs.fetchone()
+    if result:
+        return result
+    else:
+        abort(404)
 
-# def get_basin_geom(basinId):
-#     with db_cursor() as cs:
-#         cs.execute("""
-#             SELECT ST_AsText(geom)
-#             FROM basin_geom
-#             INNER JOIN basin on basin.basin_id = basin_geom.basin_id
-#             WHERE basin.basin_id=%s
-#             """, [basinId])
-#         result = cs.fetchone()
-#     if result:
-#         return result[0]
-#     else:
-#         abort(404)
+def find_most_score_of_year():
+    result = get_average_score_of_movies_in_each_year()
+    max_score = 0
+    for i in result:
+        if i.imdb_avg_score > max_score:
+            max_score = i.imdb_avg_score
+            year = i.title_year
+    if result:
+        return f"{year} : {max_score}"
+    else:
+        abort(404)
 
-# def get_stations_in_basin(basinId):
-#     with db_cursor() as cs:
-#         cs.execute("""
-#             SELECT station_id,basin_id,ename,lat,lon
-#             FROM station WHERE basin_id=%s
-#             """, [basinId])
-#         result = [models.Station(*row) for row in cs.fetchall()]
-#         return result
+def get_average_score_for_each_director():
+    with db_cursor() as cs:
+        cs.execute("""
+            SELECT director_name,AVG(imdb_score)
+            FROM Movies
+            GROUP BY director_name;
+            """)
+        result = [models.Director(*row) for row in cs.fetchall()]
+    if result:
+        return result
+    else:
+        abort(404)
+def get_average_score_for_each_director_in_each_year(title_year):
+    with db_cursor() as cs:
+        cs.execute("""
+            SELECT director_name,AVG(imdb_score)
+            FROM Movies
+            WHERE title_year=%s
+            GROUP BY director_name;
+            """, [title_year])
+        result = [models.Director(*row) for row in cs.fetchall()]
+    if result:
+        return result
+    else:
+        abort(404)
 
-# def get_station_details(stationId):
-#     with db_cursor() as cs:
-#         cs.execute("""
-#             SELECT station_id,basin_id,ename,lat,lon 
-#             FROM station 
-#             WHERE station_id=%s
-#             """, [stationId])
-#         result = cs.fetchone()
-#     if result:
-#         return models.Station(*result)
-#     else:
-#         abort(404)
-
-# def get_basin_annual_rainfall(basinId,year):
-#     with db_cursor() as cs:
-#         cs.execute("""
-#             SELECT AVG(total_amount)
-#             FROM (
-#                 SELECT SUM(r.amount) as total_amount
-#                 FROM rainfall r
-#                 INNER JOIN station s ON r.station_id = s.station_id
-#                 INNER JOIN basin b ON s.basin_id = b.basin_id
-#                 WHERE b.basin_id=%s AND r.year=%s
-#                 GROUP BY r.station_id
-#             ) station_total
-#             """, [basinId,year])
-#         result = cs.fetchone()
-#     if result and result[0]:
-#         amount = round(result[0],2)
-#         return amount
-#     else:
-#         abort(404)
-
-# def get_basin_monthly_average(basinId):
-#     with db_cursor() as cs:
-#         cs.execute("""
-#             SELECT month, AVG(monthly_amount)
-#             FROM (
-#                 SELECT SUM(r.amount) as monthly_amount, month
-#                 FROM rainfall r
-#                 INNER JOIN station s ON r.station_id = s.station_id
-#                 INNER JOIN basin b ON s.basin_id = b.basin_id
-#                 WHERE b.basin_id=%s
-#                 GROUP BY r.station_id, month, year
-#             ) monthly
-#             GROUP BY month
-#             """, [basinId])
-#         months = ['Jan','Feb','Mar','Apr','May','Jun',
-#                   'Jul','Aug','Sep','Oct','Nov','Dec']
-#         result = [
-#                 models.MonthlyAverage(months[month-1],month,round(amount,2))
-#                 for month,amount in cs.fetchall()
-#             ]
-#         return result
+def get_best_director():
+    result = get_average_score_for_each_director()
+    max_score = 0
+    for i in result:
+        if i.imdb_avg_score > max_score:
+            max_score = i.imdb_avg_score
+            director_name = i.director_name
+    if result:
+        return f"{director_name} : {max_score}"
+    else:
+        abort(404)

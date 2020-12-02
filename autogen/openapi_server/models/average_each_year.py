@@ -15,26 +15,26 @@ class AverageEachYear(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, year=None, score=None):  # noqa: E501
+    def __init__(self, title_year=None, imdb_avg_score=None):  # noqa: E501
         """AverageEachYear - a model defined in OpenAPI
 
-        :param year: The year of this AverageEachYear.  # noqa: E501
-        :type year: Integer
-        :param score: The score of this AverageEachYear.  # noqa: E501
-        :type score: float
+        :param title_year: The title_year of this AverageEachYear.  # noqa: E501
+        :type title_year: int
+        :param imdb_avg_score: The imdb_avg_score of this AverageEachYear.  # noqa: E501
+        :type imdb_avg_score: float
         """
         self.openapi_types = {
-            'year': Integer,
-            'score': float
+            'title_year': int,
+            'imdb_avg_score': float
         }
 
         self.attribute_map = {
-            'year': 'year',
-            'score': 'score'
+            'title_year': 'title_year',
+            'imdb_avg_score': 'imdb_avg_score'
         }
 
-        self._year = year
-        self._score = score
+        self._title_year = title_year
+        self._imdb_avg_score = imdb_avg_score
 
     @classmethod
     def from_dict(cls, dikt) -> 'AverageEachYear':
@@ -48,43 +48,43 @@ class AverageEachYear(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def year(self):
-        """Gets the year of this AverageEachYear.
+    def title_year(self):
+        """Gets the title_year of this AverageEachYear.
 
 
-        :return: The year of this AverageEachYear.
-        :rtype: Integer
+        :return: The title_year of this AverageEachYear.
+        :rtype: int
         """
-        return self._year
+        return self._title_year
 
-    @year.setter
-    def year(self, year):
-        """Sets the year of this AverageEachYear.
+    @title_year.setter
+    def title_year(self, title_year):
+        """Sets the title_year of this AverageEachYear.
 
 
-        :param year: The year of this AverageEachYear.
-        :type year: Integer
+        :param title_year: The title_year of this AverageEachYear.
+        :type title_year: int
         """
 
-        self._year = year
+        self._title_year = title_year
 
     @property
-    def score(self):
-        """Gets the score of this AverageEachYear.
+    def imdb_avg_score(self):
+        """Gets the imdb_avg_score of this AverageEachYear.
 
 
-        :return: The score of this AverageEachYear.
+        :return: The imdb_avg_score of this AverageEachYear.
         :rtype: float
         """
-        return self._score
+        return self._imdb_avg_score
 
-    @score.setter
-    def score(self, score):
-        """Sets the score of this AverageEachYear.
+    @imdb_avg_score.setter
+    def imdb_avg_score(self, imdb_avg_score):
+        """Sets the imdb_avg_score of this AverageEachYear.
 
 
-        :param score: The score of this AverageEachYear.
-        :type score: float
+        :param imdb_avg_score: The imdb_avg_score of this AverageEachYear.
+        :type imdb_avg_score: float
         """
 
-        self._score = score
+        self._imdb_avg_score = imdb_avg_score
