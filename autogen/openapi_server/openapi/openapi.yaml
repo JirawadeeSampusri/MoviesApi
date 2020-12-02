@@ -1,0 +1,200 @@
+openapi: 3.0.0
+info:
+  description: This API provides the details of the movie.
+  title: Movie api
+  version: 3.0.0
+servers:
+- url: /movie/v3
+paths:
+  /movies:
+    get:
+      operationId: controller_get_movies
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Movie'
+                type: array
+          description: Success
+          links:
+            best-movies:
+              operationId: controller.get_best_movie
+              parameters:
+                director_name: $response.body#/
+      summary: Returns a list movie.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/best-movies:
+    get:
+      operationId: controller_get_best_movies
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Movie'
+                type: array
+          description: Success
+      summary: Returns a list movie that ahve imdb scor more than 9.5.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/{actor_1_name}:
+    get:
+      operationId: controller_get_movies_of_actor
+      parameters:
+      - explode: false
+        in: path
+        name: actor_1_name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: Success
+          links:
+            all-score:
+              operationId: controller.get_average_score_of_actor
+              parameters:
+                actor_1_name: $response.body#/actor_1_name
+      summary: Returns a list of movies that this director has directed.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/{actor_1_name}/all-score:
+    get:
+      operationId: controller_get_average_score_of_actor
+      parameters:
+      - explode: false
+        in: path
+        name: actor_1_name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: number
+          description: Success
+      summary: Returns average score of all movie of this director.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/{director_name}:
+    get:
+      operationId: controller_get_movies_directed_by_director_name
+      parameters:
+      - explode: false
+        in: path
+        name: director_name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: Success
+          links:
+            score:
+              operationId: controller.get_average_score_for_director
+              parameters:
+                director_name: $response.body#/director_name
+      summary: Returns a list of movies that this director has directed.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/{director_name}/score:
+    get:
+      operationId: controller_get_average_score_for_director
+      parameters:
+      - explode: false
+        in: path
+        name: director_name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: number
+          description: Success
+      summary: Returns average score of all movie of this director.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/{title_year}:
+    get:
+      operationId: controller_get_movie_by_year
+      parameters:
+      - explode: false
+        in: path
+        name: title_year
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+          description: Success
+      summary: Returns full detail of the movies that have this title.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+components:
+  schemas:
+    Movie:
+      example:
+        country: country
+        num_voted_user: 0
+        actor_2_name: actor_2_name
+        num_user_for_reviews: 6
+        language: language
+        title_year: 1
+        movie_title: movie_title
+        imdb_score: 5.962134
+        duration: duration
+        movie_imdb_link: movie_imdb_link
+        genres: genres
+        actor_1_name: actor_1_name
+        director_name: director_name
+        actor_3_name: actor_3_name
+      properties:
+        director_name:
+          type: string
+        duration:
+          type: string
+        actor_2_name:
+          type: string
+        genres:
+          type: string
+        actor_1_name:
+          type: string
+        movie_title:
+          type: string
+        num_voted_user:
+          type: integer
+        actor_3_name:
+          type: string
+        movie_imdb_link:
+          type: string
+        num_user_for_reviews:
+          type: integer
+        language:
+          type: string
+        country:
+          type: string
+        title_year:
+          type: integer
+        imdb_score:
+          format: float
+          type: number
+      type: object
