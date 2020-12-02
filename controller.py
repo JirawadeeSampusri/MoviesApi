@@ -50,7 +50,7 @@ def get_movie_by_year(title_year):
 def get_average_score_for_director(director_name):
     with db_cursor() as cs:
         cs.execute("""
-            SELECT AVG(imdb_score)
+            SELECT director_name,AVG(imdb_score)
             FROM Movies
             WHERE director_name=%s;
             """, [director_name])
@@ -93,6 +93,15 @@ def get_average_score_of_movies_in_each_year():
             GROUP BY title_year
             ORDER BY title_year
             """)
+        result = [models.Movie(*row) for row in cs.fetchall()]
+    return result
+def get_average_score_of_movies_in_that_year(title_year):
+    with db_cursor() as cs:
+        cs.execute("""
+            SELECT title_year, AVG(imdb_score)
+            FROM Movies
+            WHERE title_year=%s
+            """,  [title_year])
         result = [models.Movie(*row) for row in cs.fetchall()]
     return result
 

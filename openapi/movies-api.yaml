@@ -1,8 +1,7 @@
 openapi: 3.0.0
 info:
   title: Movie api
-  description:
-    This API provides the details of the movie.
+  description: This API provides the details of the movie.
   version: 3.0.0
 servers:
   - url: /movie/v3
@@ -20,11 +19,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Movie'
-          links:
-            best-movies:
-              operationId: controller.get_best_movie
-              parameters:
-                director_name: $response.body#/
+
   /movies/{director_name}:
     parameters:
     - name: director_name
@@ -65,6 +60,28 @@ paths:
             application/json:
               schema:
                   $ref: '#/components/schemas/Movie'
+          links:
+            year-Score:
+              operationId: controller.get_average_score_of_movies_in_that_year
+              parameters:
+                actor_1_name: $response.body#/title_year
+  /movies/{title_year}/year-score:
+    parameters:
+    - name: title_year
+      in: path
+      required: true
+      schema:
+        type : integer
+    get:
+      summary: Returns full detail of the movies that have this title.
+      operationId: controller.get_average_score_of_movies_in_that_year
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  type: number
   /movies/{director_name}/score:
     parameters:
     - name: director_name
@@ -146,7 +163,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Movie'
+                  $ref: '#/components/schemas/AverageEachYear'
           
 
 
@@ -316,5 +333,13 @@ components:
         title_year:
           type: integer
         imdb_score:
+          type: number
+          format: float
+    AverageEachYear:
+      type: object
+      properties:
+        year:
+          type: Integer
+        score:
           type: number
           format: float
