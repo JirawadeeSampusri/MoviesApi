@@ -1,0 +1,307 @@
+openapi: 3.0.0
+info:
+  title: Movie api
+  description:
+    This API provides the details of the movie.
+  version: 3.0.0
+servers:
+  - url: /movie/v3
+paths:
+  /movies:
+    get:
+      summary: Returns a list movie.
+      operationId: controller.get_movies
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+          links:
+            best-movies:
+              operationId: controller.get_best_movie
+              parameters:
+                director_name: $response.body#/
+  /movies/{director_name}:
+    parameters:
+    - name: director_name
+      in: path
+      required: true
+      schema:
+        type : string
+    get:
+      summary: Returns a list of movies that this director has directed.
+      operationId: controller.get_movies_directed_by_director_name
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Movie'
+          links:
+            score:
+              operationId: controller.get_average_score_for_director
+              parameters:
+                director_name: $response.body#/director_name
+  
+  /movies/{title_year}:
+    parameters:
+    - name: title_year
+      in: path
+      required: true
+      schema:
+        type : integer
+    get:
+      summary: Returns full detail of the movies that have this title.
+      operationId: controller.get_movie_by_year
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Movie'
+  /movies/{director_name}/score:
+    parameters:
+    - name: director_name
+      in: path
+      required: true
+      schema:
+        type : string
+    get:
+      summary: Returns average score of all movie of this director.
+      operationId: controller.get_average_score_for_director
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: number
+  /movies/best-movies:
+    get:
+      summary: Returns a list movie that ahve imdb scor more than 9.5.
+      operationId: controller.get_best_movies
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+  /movies/{actor_1_name}:
+    parameters:
+    - name: actor_1_name
+      in: path
+      required: true
+      schema:
+        type : string
+    get:
+      summary: Returns a list of movies that this director has directed.
+      operationId: controller.get_movies_of_actor
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Movie'
+          links:
+            all-score:
+              operationId: controller.get_average_score_of_actor
+              parameters:
+                actor_1_name: $response.body#/actor_1_name
+  /movies/{actor_1_name}/all-score:
+    parameters:
+    - name: actor_1_name
+      in: path
+      required: true
+      schema:
+        type : string
+    get:
+      summary: Returns average score of all movie of this director.
+      operationId: controller.get_average_score_of_actor
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: number
+          
+
+
+  # /basins/{basinId}:
+  #   parameters:
+  #   - name: basinId
+  #     in: path
+  #     required: true
+  #     schema:
+  #       type : integer
+  #   get:
+  #     summary: Returns complete details of the specified movie
+  #     operationId: controller.get_basin_details
+  #     responses:
+  #       200:
+  #         description: Success
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/Basin'
+  #         links:
+  #           stations:
+  #             operationId: controller.get_stations_in_basin
+  #             parameters:
+  #               basinId: $response.body#/basinId
+  #           geom:
+  #             operationId: controller.get_basin_geom
+  #             parameters:
+  #               basinId: $response.body#/basinId
+  #           annualRainfall:
+  #             operationId: controller.get_basin_annual_rainfall
+  #             parameters:
+  #               basinId: $response.body#/basinId
+  #           avgMonthlyRainfalls:
+  #             operationId: controller.get_basin_monthly_average
+  #             parameters:
+  #               basinId: $response.body#/basinId
+  # /basins/{basinId}/geom:
+  #   parameters:
+  #   - name: basinId
+  #     in: path
+  #     required: true
+  #     schema:
+  #       type : integer
+  #   get:
+  #     summary: Returns WKT representation of the specified basin's geometry
+  #     operationId: controller.get_basin_geom
+  #     responses:
+  #       200:
+  #         description: Success
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: string
+  # /stationsInBasin/{basinId}:
+  #   parameters:
+  #   - name: basinId
+  #     in: path
+  #     required: true
+  #     schema:
+  #       type : integer
+  #   get:
+  #     summary: Returns a list of stations located within the specified basin.
+  #     operationId: controller.get_stations_in_basin
+  #     responses:
+  #       200:
+  #         description: Success
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/Station'
+  # /stations/{stationId}:
+  #   parameters:
+  #   - name: stationId
+  #     in: path
+  #     required: true
+  #     schema:
+  #       type : integer
+  #   get:
+  #     summary: Returns complete details of the specified station
+  #     operationId: controller.get_station_details
+  #     responses:
+  #       200:
+  #         description: Success
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/Station'
+  #         links:
+  #           basin:
+  #             operationId: controller.get_basin_details
+  #             parameters:
+  #               basinId: $response.body#/basinId
+  # /basins/{basinId}/annualRainfalls/{year}:
+  #   parameters:
+  #   - name: basinId
+  #     in: path
+  #     required: true
+  #     schema:
+  #       type : integer
+  #   - name: year
+  #     in: path
+  #     required: true
+  #     schema:
+  #       type : integer
+  #   get:
+  #     summary: Returns total annual rainfall for the specified basin in the specified year
+  #     operationId: controller.get_basin_annual_rainfall
+  #     responses:
+  #       200:
+  #         description: Success
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: number
+  # /basins/{basinId}/monthlyAverage:
+  #   parameters:
+  #   - name: basinId
+  #     in: path
+  #     required: true
+  #     schema:
+  #       type : integer
+  #   get:
+  #     summary: Returns monthly average rainfall for the specified basin across all available years
+  #     operationId: controller.get_basin_monthly_average
+  #     responses:
+  #       200:
+  #         description: Success
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+                  # $ref: '#/components/schemas/MonthlyAverage'
+
+components:
+  schemas:
+    Movie:
+      type: object
+      properties:
+        director_name:
+          type: string
+        duration:
+          type: string
+        actor_2_name:
+          type: string
+        genres:
+          type: string
+        actor_1_name:
+          type: string
+        movie_title:
+          type: string
+        num_voted_user:
+          type: integer
+        actor_3_name:
+          type: string
+        movie_imdb_link:
+          type: string
+        num_user_for_reviews:
+          type: integer
+        language:
+          type: string
+        country:
+          type: string
+        title_year:
+          type: integer
+        imdb_score:
+          type: number
+          format: float
