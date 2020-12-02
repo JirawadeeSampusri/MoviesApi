@@ -85,6 +85,17 @@ def get_average_score_of_actor(actor_name):
         result = cs.fetchone()
     return result
 
+def get_average_score_of_movies_in_each_year():
+    with db_cursor() as cs:
+        cs.execute("""
+            SELECT title_year, AVG(imdb_score)
+            FROM Movies
+            GROUP BY title_year
+            ORDER BY title_year
+            """)
+        result = [models.Movie(*row) for row in cs.fetchall()]
+    return result
+
 # def get_basin_geom(basinId):
 #     with db_cursor() as cs:
 #         cs.execute("""

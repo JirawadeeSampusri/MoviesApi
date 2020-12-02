@@ -134,6 +134,19 @@ paths:
             application/json:
               schema:
                 type: number
+  /movies/EachYearScore:
+    get:
+      summary: Returns a list movie.
+      operationId: controller.get_average_score_of_movies_in_each_year
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
           
 
 
