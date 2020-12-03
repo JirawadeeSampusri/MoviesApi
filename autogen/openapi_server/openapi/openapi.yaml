@@ -127,7 +127,7 @@ paths:
           content:
             application/json:
               schema:
-                type: number
+                $ref: '#/components/schemas/Actor'
           description: Success
       summary: Returns average score of all movie of this director.
       x-openapi-router-controller: openapi_server.controllers.default_controller
@@ -218,7 +218,11 @@ paths:
             year-Score:
               operationId: controller.get_average_score_of_movies_in_that_year
               parameters:
-                actor_1_name: $response.body#/title_year
+                title_year: $response.body#/title_year
+            EachDirectorScore:
+              operationId: controller.get_average_score_for_each_director_in_each_year
+              parameters:
+                title_year: $response.body#/title_year
       summary: Returns full detail of the movies that have this title.
       x-openapi-router-controller: openapi_server.controllers.default_controller
   /movies/{title_year}/year-score:
@@ -302,6 +306,17 @@ components:
           type: number
       type: object
     Director:
+      example:
+        imdb_avg_score: 0.8008282
+        director_name: director_name
+      properties:
+        director_name:
+          type: string
+        imdb_avg_score:
+          format: float
+          type: number
+      type: object
+    Actor:
       example:
         imdb_avg_score: 0.8008282
         director_name: director_name

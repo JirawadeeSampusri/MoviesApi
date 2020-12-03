@@ -23,7 +23,7 @@ def get_movies():
 def get_movies_directed_by_director_name(director_name):
     with db_cursor() as cs:
         cs.execute("""
-            SELECT movie_title, title_year
+            SELECT director_name,movie_title, title_year, genres, imdb_score
             FROM Movies
             WHERE director_name=%s
             """, [director_name])
@@ -41,10 +41,7 @@ def get_movie_detail_by_movie_title(movie_title):
             WHERE movie_title=%s
             """, [movie_title])
         result = [models.Movie(*row) for row in cs.fetchall()]
-    if result:
-        return result
-    else:
-        abort(404)
+    return result
 def get_movie_by_year(title_year):
     with db_cursor() as cs:
         cs.execute("""
@@ -89,11 +86,11 @@ def get_movies_from_actor(actor_name):
     actor_3_name = actor_name
     with db_cursor() as cs:
         cs.execute("""
-            SELECT movie_title, imdb_score
+            SELECT *
             FROM Movies
             WHERE actor_1_name=%s OR actor_2_name=%s OR actor_3_name=%s;
             """, [actor_1_name,actor_2_name,actor_3_name])
-        result = [models.Director(*row) for row in cs.fetchall()]
+        result = [models.Actor(*row) for row in cs.fetchall()]
     if result:
         return result
     else:
@@ -174,7 +171,7 @@ def get_average_score_for_each_director_in_each_year(title_year):
             WHERE title_year=%s
             GROUP BY director_name;
             """, [title_year])
-        result = [models.Director(*row) for row in cs.fetchall()]
+        result = [models.Movie(*row) for row in cs.fetchall()]
     if result:
         return result
     else:

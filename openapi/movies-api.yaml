@@ -64,7 +64,11 @@ paths:
             year-Score:
               operationId: controller.get_average_score_of_movies_in_that_year
               parameters:
-                actor_1_name: $response.body#/title_year
+                title_year: $response.body#/title_year
+            EachDirectorScore:
+              operationId: controller.get_average_score_for_each_director_in_each_year
+              parameters:
+                title_year: $response.body#/title_year
   /movies/{movie_title}:
     parameters:
     - name: movie_title
@@ -185,7 +189,7 @@ paths:
   #       type : integer
   #   get:
   #     summary: Returns a list movie.
-  #     operationId: controller.et_average_score_for_each_director_in_each_year
+  #     operationId: controller.get_average_score_for_each_director_in_each_year
   #     responses:
   #       200:
   #         description: Success
@@ -211,7 +215,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Movie'
+                $ref: '#/components/schemas/Movie'
           links:
             all-score:
               operationId: controller.get_average_score_of_actor
@@ -233,7 +237,8 @@ paths:
           content:
             application/json:
               schema:
-                type: number
+                type: array 
+                $ref: '#/components/schemas/Actor'
           
 components:
   schemas:
@@ -285,4 +290,12 @@ components:
         imdb_avg_score:
           type: number
           format: float
-      
+    Actor:
+      type: object
+      properties:
+        director_name:
+          type: string
+        imdb_avg_score:
+          type: number
+          format: float
+    
