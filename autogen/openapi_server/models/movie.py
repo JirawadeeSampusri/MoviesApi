@@ -15,86 +15,86 @@ class Movie(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, director_name=None, duration=None, actor_2_name=None, genres=None, actor_1_name=None, movie_title=None, num_voted_user=None, actor_3_name=None, movie_imdb_link=None, num_user_for_reviews=None, language=None, country=None, title_year=None, imdb_score=None):  # noqa: E501
+    def __init__(self, actor_1_name=None, actor_2_name=None, actor_3_name=None, country=None, director_name=None, duration=None, genres=None, imdb_score=None, language=None, movie_imdb_link=None, movie_title=None, num_user_for_reviews=None, num_voted_user=None, title_year=None):  # noqa: E501
         """Movie - a model defined in OpenAPI
 
+        :param actor_1_name: The actor_1_name of this Movie.  # noqa: E501
+        :type actor_1_name: str
+        :param actor_2_name: The actor_2_name of this Movie.  # noqa: E501
+        :type actor_2_name: str
+        :param actor_3_name: The actor_3_name of this Movie.  # noqa: E501
+        :type actor_3_name: str
+        :param country: The country of this Movie.  # noqa: E501
+        :type country: str
         :param director_name: The director_name of this Movie.  # noqa: E501
         :type director_name: str
         :param duration: The duration of this Movie.  # noqa: E501
         :type duration: str
-        :param actor_2_name: The actor_2_name of this Movie.  # noqa: E501
-        :type actor_2_name: str
         :param genres: The genres of this Movie.  # noqa: E501
         :type genres: str
-        :param actor_1_name: The actor_1_name of this Movie.  # noqa: E501
-        :type actor_1_name: str
-        :param movie_title: The movie_title of this Movie.  # noqa: E501
-        :type movie_title: str
-        :param num_voted_user: The num_voted_user of this Movie.  # noqa: E501
-        :type num_voted_user: int
-        :param actor_3_name: The actor_3_name of this Movie.  # noqa: E501
-        :type actor_3_name: str
-        :param movie_imdb_link: The movie_imdb_link of this Movie.  # noqa: E501
-        :type movie_imdb_link: str
-        :param num_user_for_reviews: The num_user_for_reviews of this Movie.  # noqa: E501
-        :type num_user_for_reviews: int
-        :param language: The language of this Movie.  # noqa: E501
-        :type language: str
-        :param country: The country of this Movie.  # noqa: E501
-        :type country: str
-        :param title_year: The title_year of this Movie.  # noqa: E501
-        :type title_year: int
         :param imdb_score: The imdb_score of this Movie.  # noqa: E501
         :type imdb_score: float
+        :param language: The language of this Movie.  # noqa: E501
+        :type language: str
+        :param movie_imdb_link: The movie_imdb_link of this Movie.  # noqa: E501
+        :type movie_imdb_link: str
+        :param movie_title: The movie_title of this Movie.  # noqa: E501
+        :type movie_title: str
+        :param num_user_for_reviews: The num_user_for_reviews of this Movie.  # noqa: E501
+        :type num_user_for_reviews: int
+        :param num_voted_user: The num_voted_user of this Movie.  # noqa: E501
+        :type num_voted_user: int
+        :param title_year: The title_year of this Movie.  # noqa: E501
+        :type title_year: int
         """
         self.openapi_types = {
+            'actor_1_name': str,
+            'actor_2_name': str,
+            'actor_3_name': str,
+            'country': str,
             'director_name': str,
             'duration': str,
-            'actor_2_name': str,
             'genres': str,
-            'actor_1_name': str,
-            'movie_title': str,
-            'num_voted_user': int,
-            'actor_3_name': str,
-            'movie_imdb_link': str,
-            'num_user_for_reviews': int,
+            'imdb_score': float,
             'language': str,
-            'country': str,
-            'title_year': int,
-            'imdb_score': float
+            'movie_imdb_link': str,
+            'movie_title': str,
+            'num_user_for_reviews': int,
+            'num_voted_user': int,
+            'title_year': int
         }
 
         self.attribute_map = {
+            'actor_1_name': 'actor_1_name',
+            'actor_2_name': 'actor_2_name',
+            'actor_3_name': 'actor_3_name',
+            'country': 'country',
             'director_name': 'director_name',
             'duration': 'duration',
-            'actor_2_name': 'actor_2_name',
             'genres': 'genres',
-            'actor_1_name': 'actor_1_name',
-            'movie_title': 'movie_title',
-            'num_voted_user': 'num_voted_user',
-            'actor_3_name': 'actor_3_name',
-            'movie_imdb_link': 'movie_imdb_link',
-            'num_user_for_reviews': 'num_user_for_reviews',
+            'imdb_score': 'imdb_score',
             'language': 'language',
-            'country': 'country',
-            'title_year': 'title_year',
-            'imdb_score': 'imdb_score'
+            'movie_imdb_link': 'movie_imdb_link',
+            'movie_title': 'movie_title',
+            'num_user_for_reviews': 'num_user_for_reviews',
+            'num_voted_user': 'num_voted_user',
+            'title_year': 'title_year'
         }
 
+        self._actor_1_name = actor_1_name
+        self._actor_2_name = actor_2_name
+        self._actor_3_name = actor_3_name
+        self._country = country
         self._director_name = director_name
         self._duration = duration
-        self._actor_2_name = actor_2_name
         self._genres = genres
-        self._actor_1_name = actor_1_name
-        self._movie_title = movie_title
-        self._num_voted_user = num_voted_user
-        self._actor_3_name = actor_3_name
-        self._movie_imdb_link = movie_imdb_link
-        self._num_user_for_reviews = num_user_for_reviews
-        self._language = language
-        self._country = country
-        self._title_year = title_year
         self._imdb_score = imdb_score
+        self._language = language
+        self._movie_imdb_link = movie_imdb_link
+        self._movie_title = movie_title
+        self._num_user_for_reviews = num_user_for_reviews
+        self._num_voted_user = num_voted_user
+        self._title_year = title_year
 
     @classmethod
     def from_dict(cls, dikt) -> 'Movie':
@@ -106,6 +106,90 @@ class Movie(Model):
         :rtype: Movie
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def actor_1_name(self):
+        """Gets the actor_1_name of this Movie.
+
+
+        :return: The actor_1_name of this Movie.
+        :rtype: str
+        """
+        return self._actor_1_name
+
+    @actor_1_name.setter
+    def actor_1_name(self, actor_1_name):
+        """Sets the actor_1_name of this Movie.
+
+
+        :param actor_1_name: The actor_1_name of this Movie.
+        :type actor_1_name: str
+        """
+
+        self._actor_1_name = actor_1_name
+
+    @property
+    def actor_2_name(self):
+        """Gets the actor_2_name of this Movie.
+
+
+        :return: The actor_2_name of this Movie.
+        :rtype: str
+        """
+        return self._actor_2_name
+
+    @actor_2_name.setter
+    def actor_2_name(self, actor_2_name):
+        """Sets the actor_2_name of this Movie.
+
+
+        :param actor_2_name: The actor_2_name of this Movie.
+        :type actor_2_name: str
+        """
+
+        self._actor_2_name = actor_2_name
+
+    @property
+    def actor_3_name(self):
+        """Gets the actor_3_name of this Movie.
+
+
+        :return: The actor_3_name of this Movie.
+        :rtype: str
+        """
+        return self._actor_3_name
+
+    @actor_3_name.setter
+    def actor_3_name(self, actor_3_name):
+        """Sets the actor_3_name of this Movie.
+
+
+        :param actor_3_name: The actor_3_name of this Movie.
+        :type actor_3_name: str
+        """
+
+        self._actor_3_name = actor_3_name
+
+    @property
+    def country(self):
+        """Gets the country of this Movie.
+
+
+        :return: The country of this Movie.
+        :rtype: str
+        """
+        return self._country
+
+    @country.setter
+    def country(self, country):
+        """Sets the country of this Movie.
+
+
+        :param country: The country of this Movie.
+        :type country: str
+        """
+
+        self._country = country
 
     @property
     def director_name(self):
@@ -150,27 +234,6 @@ class Movie(Model):
         self._duration = duration
 
     @property
-    def actor_2_name(self):
-        """Gets the actor_2_name of this Movie.
-
-
-        :return: The actor_2_name of this Movie.
-        :rtype: str
-        """
-        return self._actor_2_name
-
-    @actor_2_name.setter
-    def actor_2_name(self, actor_2_name):
-        """Sets the actor_2_name of this Movie.
-
-
-        :param actor_2_name: The actor_2_name of this Movie.
-        :type actor_2_name: str
-        """
-
-        self._actor_2_name = actor_2_name
-
-    @property
     def genres(self):
         """Gets the genres of this Movie.
 
@@ -192,130 +255,25 @@ class Movie(Model):
         self._genres = genres
 
     @property
-    def actor_1_name(self):
-        """Gets the actor_1_name of this Movie.
+    def imdb_score(self):
+        """Gets the imdb_score of this Movie.
 
 
-        :return: The actor_1_name of this Movie.
-        :rtype: str
+        :return: The imdb_score of this Movie.
+        :rtype: float
         """
-        return self._actor_1_name
+        return self._imdb_score
 
-    @actor_1_name.setter
-    def actor_1_name(self, actor_1_name):
-        """Sets the actor_1_name of this Movie.
-
-
-        :param actor_1_name: The actor_1_name of this Movie.
-        :type actor_1_name: str
-        """
-
-        self._actor_1_name = actor_1_name
-
-    @property
-    def movie_title(self):
-        """Gets the movie_title of this Movie.
+    @imdb_score.setter
+    def imdb_score(self, imdb_score):
+        """Sets the imdb_score of this Movie.
 
 
-        :return: The movie_title of this Movie.
-        :rtype: str
-        """
-        return self._movie_title
-
-    @movie_title.setter
-    def movie_title(self, movie_title):
-        """Sets the movie_title of this Movie.
-
-
-        :param movie_title: The movie_title of this Movie.
-        :type movie_title: str
+        :param imdb_score: The imdb_score of this Movie.
+        :type imdb_score: float
         """
 
-        self._movie_title = movie_title
-
-    @property
-    def num_voted_user(self):
-        """Gets the num_voted_user of this Movie.
-
-
-        :return: The num_voted_user of this Movie.
-        :rtype: int
-        """
-        return self._num_voted_user
-
-    @num_voted_user.setter
-    def num_voted_user(self, num_voted_user):
-        """Sets the num_voted_user of this Movie.
-
-
-        :param num_voted_user: The num_voted_user of this Movie.
-        :type num_voted_user: int
-        """
-
-        self._num_voted_user = num_voted_user
-
-    @property
-    def actor_3_name(self):
-        """Gets the actor_3_name of this Movie.
-
-
-        :return: The actor_3_name of this Movie.
-        :rtype: str
-        """
-        return self._actor_3_name
-
-    @actor_3_name.setter
-    def actor_3_name(self, actor_3_name):
-        """Sets the actor_3_name of this Movie.
-
-
-        :param actor_3_name: The actor_3_name of this Movie.
-        :type actor_3_name: str
-        """
-
-        self._actor_3_name = actor_3_name
-
-    @property
-    def movie_imdb_link(self):
-        """Gets the movie_imdb_link of this Movie.
-
-
-        :return: The movie_imdb_link of this Movie.
-        :rtype: str
-        """
-        return self._movie_imdb_link
-
-    @movie_imdb_link.setter
-    def movie_imdb_link(self, movie_imdb_link):
-        """Sets the movie_imdb_link of this Movie.
-
-
-        :param movie_imdb_link: The movie_imdb_link of this Movie.
-        :type movie_imdb_link: str
-        """
-
-        self._movie_imdb_link = movie_imdb_link
-
-    @property
-    def num_user_for_reviews(self):
-        """Gets the num_user_for_reviews of this Movie.
-
-
-        :return: The num_user_for_reviews of this Movie.
-        :rtype: int
-        """
-        return self._num_user_for_reviews
-
-    @num_user_for_reviews.setter
-    def num_user_for_reviews(self, num_user_for_reviews):
-        """Sets the num_user_for_reviews of this Movie.
-
-
-        :param num_user_for_reviews: The num_user_for_reviews of this Movie.
-        :type num_user_for_reviews: int
-        """
-
-        self._num_user_for_reviews = num_user_for_reviews
+        self._imdb_score = imdb_score
 
     @property
     def language(self):
@@ -339,25 +297,88 @@ class Movie(Model):
         self._language = language
 
     @property
-    def country(self):
-        """Gets the country of this Movie.
+    def movie_imdb_link(self):
+        """Gets the movie_imdb_link of this Movie.
 
 
-        :return: The country of this Movie.
+        :return: The movie_imdb_link of this Movie.
         :rtype: str
         """
-        return self._country
+        return self._movie_imdb_link
 
-    @country.setter
-    def country(self, country):
-        """Sets the country of this Movie.
+    @movie_imdb_link.setter
+    def movie_imdb_link(self, movie_imdb_link):
+        """Sets the movie_imdb_link of this Movie.
 
 
-        :param country: The country of this Movie.
-        :type country: str
+        :param movie_imdb_link: The movie_imdb_link of this Movie.
+        :type movie_imdb_link: str
         """
 
-        self._country = country
+        self._movie_imdb_link = movie_imdb_link
+
+    @property
+    def movie_title(self):
+        """Gets the movie_title of this Movie.
+
+
+        :return: The movie_title of this Movie.
+        :rtype: str
+        """
+        return self._movie_title
+
+    @movie_title.setter
+    def movie_title(self, movie_title):
+        """Sets the movie_title of this Movie.
+
+
+        :param movie_title: The movie_title of this Movie.
+        :type movie_title: str
+        """
+
+        self._movie_title = movie_title
+
+    @property
+    def num_user_for_reviews(self):
+        """Gets the num_user_for_reviews of this Movie.
+
+
+        :return: The num_user_for_reviews of this Movie.
+        :rtype: int
+        """
+        return self._num_user_for_reviews
+
+    @num_user_for_reviews.setter
+    def num_user_for_reviews(self, num_user_for_reviews):
+        """Sets the num_user_for_reviews of this Movie.
+
+
+        :param num_user_for_reviews: The num_user_for_reviews of this Movie.
+        :type num_user_for_reviews: int
+        """
+
+        self._num_user_for_reviews = num_user_for_reviews
+
+    @property
+    def num_voted_user(self):
+        """Gets the num_voted_user of this Movie.
+
+
+        :return: The num_voted_user of this Movie.
+        :rtype: int
+        """
+        return self._num_voted_user
+
+    @num_voted_user.setter
+    def num_voted_user(self, num_voted_user):
+        """Sets the num_voted_user of this Movie.
+
+
+        :param num_voted_user: The num_voted_user of this Movie.
+        :type num_voted_user: int
+        """
+
+        self._num_voted_user = num_voted_user
 
     @property
     def title_year(self):
@@ -379,24 +400,3 @@ class Movie(Model):
         """
 
         self._title_year = title_year
-
-    @property
-    def imdb_score(self):
-        """Gets the imdb_score of this Movie.
-
-
-        :return: The imdb_score of this Movie.
-        :rtype: float
-        """
-        return self._imdb_score
-
-    @imdb_score.setter
-    def imdb_score(self, imdb_score):
-        """Sets the imdb_score of this Movie.
-
-
-        :param imdb_score: The imdb_score of this Movie.
-        :type imdb_score: float
-        """
-
-        self._imdb_score = imdb_score

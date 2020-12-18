@@ -43,6 +43,19 @@ def controller_get_average_score_for_each_director():  # noqa: E501
     return 'do some magic!'
 
 
+def controller_get_average_score_for_each_director_in_each_year(title_year):  # noqa: E501
+    """Returns a list movie.
+
+     # noqa: E501
+
+    :param title_year: 
+    :type title_year: int
+
+    :rtype: List[Director]
+    """
+    return 'do some magic!'
+
+
 def controller_get_average_score_of_actor(actor_name):  # noqa: E501
     """Returns average score of all movie of this director.
 

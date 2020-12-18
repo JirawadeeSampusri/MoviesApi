@@ -222,8 +222,30 @@ paths:
             EachDirectorScore:
               operationId: controller.get_average_score_for_each_director_in_each_year
               parameters:
-                title_year: $response.body#/title_year
+                title_year: $response.body#/Director
       summary: Returns full detail of the movies that have this title.
+      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /movies/{title_year}/EachDirectorScore/:
+    get:
+      operationId: controller_get_average_score_for_each_director_in_each_year
+      parameters:
+      - explode: false
+        in: path
+        name: title_year
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Director'
+                type: array
+          description: Success
+      summary: Returns a list movie.
       x-openapi-router-controller: openapi_server.controllers.default_controller
   /movies/{title_year}/year-score:
     get:
@@ -250,49 +272,49 @@ components:
     Movie:
       example:
         country: country
-        num_voted_user: 0
+        num_voted_user: 1
         actor_2_name: actor_2_name
-        num_user_for_reviews: 6
         language: language
-        title_year: 1
+        num_user_for_reviews: 6
+        title_year: 5
         movie_title: movie_title
-        imdb_score: 5.962134
+        imdb_score: 0.8008282
         duration: duration
         movie_imdb_link: movie_imdb_link
-        genres: genres
         actor_1_name: actor_1_name
+        genres: genres
         director_name: director_name
         actor_3_name: actor_3_name
       properties:
+        actor_1_name:
+          type: string
+        actor_2_name:
+          type: string
+        actor_3_name:
+          type: string
+        country:
+          type: string
         director_name:
           type: string
         duration:
           type: string
-        actor_2_name:
-          type: string
         genres:
           type: string
-        actor_1_name:
-          type: string
-        movie_title:
-          type: string
-        num_voted_user:
-          type: integer
-        actor_3_name:
-          type: string
-        movie_imdb_link:
-          type: string
-        num_user_for_reviews:
-          type: integer
-        language:
-          type: string
-        country:
-          type: string
-        title_year:
-          type: integer
         imdb_score:
           format: float
           type: number
+        language:
+          type: string
+        movie_imdb_link:
+          type: string
+        movie_title:
+          type: string
+        num_user_for_reviews:
+          type: integer
+        num_voted_user:
+          type: integer
+        title_year:
+          type: integer
       type: object
     AverageEachYear:
       example:

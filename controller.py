@@ -64,8 +64,7 @@ def get_average_score_for_director(director_name):
             """, [director_name])
         result = cs.fetchone()
     if result:
-        score = result
-        return score
+        return result
     else:
         abort(404)
 

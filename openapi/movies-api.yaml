@@ -68,7 +68,7 @@ paths:
             EachDirectorScore:
               operationId: controller.get_average_score_for_each_director_in_each_year
               parameters:
-                title_year: $response.body#/title_year
+                title_year: $response.body#/Director
   /movies/{movie_title}:
     parameters:
     - name: movie_title
@@ -181,24 +181,25 @@ paths:
             application/json:
               schema:
                 type: string
-  # /movies/{title_year}/EachDirectorScore/:
-  #   - name: title_year
-  #     in: path
-  #     required: true
-  #     schema:
-  #       type : integer
-  #   get:
-  #     summary: Returns a list movie.
-  #     operationId: controller.get_average_score_for_each_director_in_each_year
-  #     responses:
-  #       200:
-  #         description: Success
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: array
-  #               items:
-  #                 $ref: '#/components/schemas/Director'
+  /movies/{title_year}/EachDirectorScore/:
+    parameters:
+    - name: title_year
+      in: path
+      required: true
+      schema:
+        type : integer
+    get:
+      summary: Returns a list movie.
+      operationId: controller.get_average_score_for_each_director_in_each_year
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Director'
   /movies/{actor_name}:
     parameters:
     - name: actor_name
@@ -245,35 +246,35 @@ components:
     Movie:
       type: object
       properties:
+        actor_1_name:
+          type: string
+        actor_2_name:
+          type: string
+        actor_3_name:
+          type: string
+        country:
+          type: string
         director_name:
           type: string
         duration:
           type: string
-        actor_2_name:
-          type: string
         genres:
           type: string
-        actor_1_name:
-          type: string
-        movie_title:
-          type: string
-        num_voted_user:
-          type: integer
-        actor_3_name:
-          type: string
-        movie_imdb_link:
-          type: string
-        num_user_for_reviews:
-          type: integer
-        language:
-          type: string
-        country:
-          type: string
-        title_year:
-          type: integer
         imdb_score:
           type: number
           format: float
+        language:
+          type: string
+        movie_imdb_link:
+          type: string
+        movie_title:
+          type: string
+        num_user_for_reviews:
+          type: integer
+        num_voted_user:
+          type: integer
+        title_year:
+          type: integer
     AverageEachYear:
       type: object
       properties:
