@@ -23,7 +23,7 @@ def get_movies():
 def get_movies_directed_by_director_name(director_name):
     with db_cursor() as cs:
         cs.execute("""
-            SELECT director_name,movie_title, title_year, genres, imdb_score
+            SELECT *
             FROM Movies
             WHERE director_name=%s
             """, [director_name])

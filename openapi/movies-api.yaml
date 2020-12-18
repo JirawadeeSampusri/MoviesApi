@@ -36,7 +36,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/Movie'
+                  $ref: '#/components/schemas/DirectorMovie'
           links:
             score:
               operationId: controller.get_average_score_for_director
@@ -289,6 +289,20 @@ components:
         director_name:
           type: string
         imdb_avg_score:
+          type: number
+          format: float
+    DirectorMovie:
+      type: object
+      properties:
+        director_name:
+          type: string
+        movie_title:
+          type: string
+        title_year:
+          type: integer
+        genres:
+          type: string
+        imdb_score:
           type: number
           format: float
     Actor:

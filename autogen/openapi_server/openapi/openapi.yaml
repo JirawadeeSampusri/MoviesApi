@@ -147,7 +147,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Movie'
+                $ref: '#/components/schemas/DirectorMovie'
           description: Success
           links:
             score:
@@ -335,6 +335,26 @@ components:
         director_name:
           type: string
         imdb_avg_score:
+          format: float
+          type: number
+      type: object
+    DirectorMovie:
+      example:
+        genres: genres
+        director_name: director_name
+        title_year: 0
+        movie_title: movie_title
+        imdb_score: 6.0274563
+      properties:
+        director_name:
+          type: string
+        movie_title:
+          type: string
+        title_year:
+          type: integer
+        genres:
+          type: string
+        imdb_score:
           format: float
           type: number
       type: object
