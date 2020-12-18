@@ -89,7 +89,7 @@ def get_movies_from_actor(actor_name):
             FROM Movies
             WHERE actor_1_name=%s OR actor_2_name=%s OR actor_3_name=%s;
             """, [actor_1_name,actor_2_name,actor_3_name])
-        result = [models.Actor(*row) for row in cs.fetchall()]
+        result = [models.Movie(*row) for row in cs.fetchall()]
     if result:
         return result
     else:

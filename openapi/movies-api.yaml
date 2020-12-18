@@ -19,7 +19,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Movie'
-
   /movies/{director_name}:
     parameters:
     - name: director_name
@@ -42,7 +41,6 @@ paths:
               operationId: controller.get_average_score_for_director
               parameters:
                 director_name: $response.body#/director_name
-  
   /movies/{title_year}:
     parameters:
     - name: title_year
@@ -241,7 +239,6 @@ paths:
                 type: array 
                 items:
                   $ref: '#/components/schemas/Actor'
-          
 components:
   schemas:
     Movie:
