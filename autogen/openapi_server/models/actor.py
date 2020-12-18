@@ -15,25 +15,25 @@ class Actor(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, director_name=None, imdb_avg_score=None):  # noqa: E501
+    def __init__(self, actor_name=None, imdb_avg_score=None):  # noqa: E501
         """Actor - a model defined in OpenAPI
 
-        :param director_name: The director_name of this Actor.  # noqa: E501
-        :type director_name: str
+        :param actor_name: The actor_name of this Actor.  # noqa: E501
+        :type actor_name: str
         :param imdb_avg_score: The imdb_avg_score of this Actor.  # noqa: E501
         :type imdb_avg_score: float
         """
         self.openapi_types = {
-            'director_name': str,
+            'actor_name': str,
             'imdb_avg_score': float
         }
 
         self.attribute_map = {
-            'director_name': 'director_name',
+            'actor_name': 'actor_name',
             'imdb_avg_score': 'imdb_avg_score'
         }
 
-        self._director_name = director_name
+        self._actor_name = actor_name
         self._imdb_avg_score = imdb_avg_score
 
     @classmethod
@@ -48,25 +48,25 @@ class Actor(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def director_name(self):
-        """Gets the director_name of this Actor.
+    def actor_name(self):
+        """Gets the actor_name of this Actor.
 
 
-        :return: The director_name of this Actor.
+        :return: The actor_name of this Actor.
         :rtype: str
         """
-        return self._director_name
+        return self._actor_name
 
-    @director_name.setter
-    def director_name(self, director_name):
-        """Sets the director_name of this Actor.
+    @actor_name.setter
+    def actor_name(self, actor_name):
+        """Sets the actor_name of this Actor.
 
 
-        :param director_name: The director_name of this Actor.
-        :type director_name: str
+        :param actor_name: The actor_name of this Actor.
+        :type actor_name: str
         """
 
-        self._director_name = director_name
+        self._actor_name = actor_name
 
     @property
     def imdb_avg_score(self):

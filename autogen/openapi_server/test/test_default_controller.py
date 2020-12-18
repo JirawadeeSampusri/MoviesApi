@@ -9,7 +9,6 @@ from six import BytesIO
 from openapi_server.models.actor import Actor  # noqa: E501
 from openapi_server.models.average_each_year import AverageEachYear  # noqa: E501
 from openapi_server.models.director import Director  # noqa: E501
-from openapi_server.models.director_movie import DirectorMovie  # noqa: E501
 from openapi_server.models.movie import Movie  # noqa: E501
 from openapi_server.test import BaseTestCase
 

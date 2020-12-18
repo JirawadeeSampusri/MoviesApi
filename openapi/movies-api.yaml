@@ -36,7 +36,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/DirectorMovie'
+                  $ref: '#/components/schemas/Movie'
           links:
             score:
               operationId: controller.get_average_score_for_director
@@ -119,7 +119,7 @@ paths:
           content:
             application/json:
               schema:
-                type: number
+                  type: number
   /movies/best-movies:
     get:
       summary: Returns a list movie that ahve imdb scor more than 9.5.
@@ -239,7 +239,8 @@ paths:
             application/json:
               schema:
                 type: array 
-                $ref: '#/components/schemas/Actor'
+                items:
+                  $ref: '#/components/schemas/Actor'
           
 components:
   schemas:
@@ -291,24 +292,10 @@ components:
         imdb_avg_score:
           type: number
           format: float
-    DirectorMovie:
-      type: object
-      properties:
-        director_name:
-          type: string
-        movie_title:
-          type: string
-        title_year:
-          type: integer
-        genres:
-          type: string
-        imdb_score:
-          type: number
-          format: float
     Actor:
       type: object
       properties:
-        director_name:
+        actor_name:
           type: string
         imdb_avg_score:
           type: number

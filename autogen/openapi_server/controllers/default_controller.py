@@ -4,7 +4,6 @@ import six
 from openapi_server.models.actor import Actor  # noqa: E501
 from openapi_server.models.average_each_year import AverageEachYear  # noqa: E501
 from openapi_server.models.director import Director  # noqa: E501
-from openapi_server.models.director_movie import DirectorMovie  # noqa: E501
 from openapi_server.models.movie import Movie  # noqa: E501
 from openapi_server import util
 
@@ -65,7 +64,7 @@ def controller_get_average_score_of_actor(actor_name):  # noqa: E501
     :param actor_name: 
     :type actor_name: str
 
-    :rtype: Actor
+    :rtype: List[Actor]
     """
     return 'do some magic!'
 
@@ -161,7 +160,7 @@ def controller_get_movies_directed_by_director_name(director_name):  # noqa: E50
     :param director_name: 
     :type director_name: str
 
-    :rtype: DirectorMovie
+    :rtype: Movie
     """
     return 'do some magic!'
 

@@ -58,7 +58,7 @@ def get_movie_by_year(title_year):
 def get_average_score_for_director(director_name):
     with db_cursor() as cs:
         cs.execute("""
-            SELECT director_name,AVG(imdb_score)
+            SELECT AVG(imdb_score)
             FROM Movies
             WHERE director_name=%s;
             """, [director_name])
