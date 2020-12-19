@@ -170,7 +170,7 @@ def get_average_score_for_each_director_in_each_year(title_year):
             WHERE title_year=%s
             GROUP BY director_name;
             """, [title_year])
-        result = [models.Movie(*row) for row in cs.fetchall()]
+        result = [models.Director(*row) for row in cs.fetchall()]
     if result:
         return result
     else:
